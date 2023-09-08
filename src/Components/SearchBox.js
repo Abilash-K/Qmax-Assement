@@ -9,7 +9,10 @@ const SearchBox = ({search,data}) => {
     localStorage.setItem("inputSearch", JSON.stringify(inputSearch));
   }, [inputSearch]);
   const userValue = (e) => {
-    setInputSearch(e.target.value);
+    const userinput = e.target.value;
+    setInputSearch(userinput)
+    const searchResult = FuzzySearch(userinput,data)
+    search(searchResult)
   };
   // FuzzySearch
   const FuzzySearch = (query, data) => {
@@ -27,10 +30,7 @@ const SearchBox = ({search,data}) => {
     });
   };
 
-  const handleClick = ()=> {
-      const searchResult = FuzzySearch(inputSearch,data)
-      search(searchResult)
-  }
+
   
   return (
     <div style={{ margin: "10px" }}>
@@ -44,7 +44,6 @@ const SearchBox = ({search,data}) => {
           endAdornment: (
             <SearchIcon
               style={{ cursor: 'pointer' }}
-              onClick={handleClick}
             />
           ),
         }}
